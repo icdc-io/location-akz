@@ -1,7 +1,7 @@
 # AKZ, hex_code: 11, dec_code: 17
 # Required for client-auto-config
 location: akz
-# public_key: NPMQfjHY1MHsRfnCN0geIJJsYSxE/uPcUloN2pAW3Cw=
+public_key: r/ETjczLy49tbtp0GJOTFB/YQ+B0jcRp7pbn8dQwhRM=
 # VPN server config
 account: sys
 vpn:
@@ -43,7 +43,7 @@ peer_vpn:
   - 10.253.38.0/24
 # NAT for Location resources
 nat:
-  subnet: 10.253.25.128/25
+  subnet: 10.253.17.128/25
   map:
   - num: 2
     toaddr: 10.254.1.20
