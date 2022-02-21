@@ -29,7 +29,7 @@ vpn:
     public_key: YNcpPcKq2UOK9D6L8PJLaUBLpqRrm3Y28M57pC77WhU=
 - name: team
   port: 2201
-  ip: 10.254.25.1/25
+  ip: 10.254.17.1/25
   devices:
   - num: 2
     name: nobody
