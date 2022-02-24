@@ -27,6 +27,9 @@ vpn:
   - num: 7
     name: skuzko notebook
     public_key: YNcpPcKq2UOK9D6L8PJLaUBLpqRrm3Y28M57pC77WhU=
+  - num: 8
+    name: dmemekh okd-setup
+    public_key: Wd5UPiUGEkP/pE6Wdth9/ZhqsBe73GCKazhh0fxzZl4=
 - name: team
   port: 2201
   ip: 10.254.17.1/25
