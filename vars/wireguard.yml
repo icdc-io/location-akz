@@ -32,7 +32,7 @@ vpn:
     public_key: Wd5UPiUGEkP/pE6Wdth9/ZhqsBe73GCKazhh0fxzZl4=
   - num: 9
     name: iarystau notebook
-    public_key: 83/xXdwOt6uvlevvifN2ADYJOdkns9XhUvdai+PVWzU=
+    public_key: 05MS3nc46SbIKBzB8fW8JagqziZkjWV4LoBHY51uF0Q=
 - name: team
   port: 2201
   ip: 10.254.17.1/25
