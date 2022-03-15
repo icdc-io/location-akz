@@ -91,13 +91,13 @@ nat:
     toaddr: 10.254.28.10
     host: openshift-sys
   - num: 30
-    toaddr: 10.254.20.6
+    toaddr: 10.254.20.9
     host: zabbix
   - num: 31
-    toaddr: 10.254.20.8
+    toaddr: 10.254.20.6
     host: logs
   - num: 32
-    toaddr: 10.254.20.10
+    toaddr: 10.254.20.7
     host: code
   - num: 41
     toaddr: 10.254.4.21
