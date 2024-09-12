@@ -1,0 +1,45 @@
+nodes:
+- name: ovih01
+  bond:
+    datasw-1:
+      port: Eth1/1
+    datasw-2:
+      port: Eth1/1
+    po_id: 21
+- name: ovih02
+  bond:
+    datasw-1:
+      port: Eth1/2
+    datasw-2:
+      port: Eth1/2
+    po_id: 22
+- name: ovih03
+  bond:
+    datasw-1:
+      port: Eth1/3
+    datasw-2:
+      port: Eth1/3
+    po_id: 23
+# Ceph Fast
+- name: ceph01
+  bond:
+    datasw-1:
+      port: Eth1/5
+    datasw-2:
+      port: Eth1/5
+    po_id: 11
+- name: ceph02
+  bond:
+    datasw-1:
+      port: Eth1/6
+    datasw-2:
+      port: Eth1/6
+    po_id: 12
+- name: ceph03
+  bond:
+    datasw-1:
+      port: Eth1/7
+    datasw-2:
+      port: Eth1/7
+    po_id: 13
+disabled_nodes:

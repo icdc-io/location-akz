@@ -1,0 +1,399 @@
+---
+overlay:
+- name: sys_base
+  desc: SYS Basic network
+  subnet: 10.254.20.0/24
+  gateway: 10.254.20.1
+  router: sys_default
+- name: sys_ocp
+  desc: SYS OpenShift network
+  subnet: 10.254.29.0/24
+  gateway: 10.254.29.1
+  router: sys_default
+- name: sys_orc
+  desc: SYS Outrun Cloud network
+  subnet: 10.254.30.0/24
+  gateway: 10.254.30.1
+  router: sys_default
+# Service Network for virtual gateways and etc.
+- name: service_v000
+  desc: v000 OVN Service network
+  subnet: 198.18.0.0/26
+  gateway: 198.18.0.1
+  router: sys_default
+- name: service_v001
+  desc: v001 OVN Service network
+  subnet: 198.18.0.0/26
+  gateway: 198.18.0.1
+#  router: icdc_default
+- name: service_v002
+  desc: v002 OVN Service network
+  subnet: 198.18.0.0/26
+  gateway: 198.18.0.1
+- name: service_v003
+  desc: v003 OVN Service network
+  subnet: 198.18.0.0/26
+  gateway: 198.18.0.1
+- name: service_v004
+  desc: v004 OVN Service network
+  subnet: 198.18.0.0/26
+  gateway: 198.18.0.1
+- name: service_v005
+  desc: v005 OVN Service network
+  subnet: 198.18.0.0/26
+  gateway: 198.18.0.1
+- name: service_v006
+  desc: v006 OVN Service network
+  subnet: 198.18.0.0/26
+  gateway: 198.18.0.1
+- name: service_v007
+  desc: v007 OVN Service network
+  subnet: 198.18.0.0/26
+  gateway: 198.18.0.1
+- name: service_v008
+  desc: v008 OVN Service network
+  subnet: 198.18.0.0/26
+  gateway: 198.18.0.1
+- name: service_v009
+  desc: v009 OVN Service network
+  subnet: 198.18.0.0/26
+  gateway: 198.18.0.1
+- name: service_v010
+  desc: v010 OVN Service network
+  subnet: 198.18.0.0/26
+  gateway: 198.18.0.1
+- name: service_v011
+  desc: v011 OVN Service network
+  subnet: 198.18.0.0/26
+  gateway: 198.18.0.1
+- name: service_v012
+  desc: v012 OVN Service network
+  subnet: 198.18.0.0/26
+  gateway: 198.18.0.1
+- name: service_v013
+  desc: v013 OVN Service network
+  subnet: 198.18.0.0/26
+  gateway: 198.18.0.1
+- name: service_v014
+  desc: v014 OVN Service network
+  subnet: 198.18.0.0/26
+  gateway: 198.18.0.1
+- name: service_v015
+  desc: v015 OVN Service network
+  subnet: 198.18.0.0/26
+  gateway: 198.18.0.1
+- name: service_v016
+  desc: v016 OVN Service network
+  subnet: 198.18.0.0/26
+  gateway: 198.18.0.1
+- name: service_v017
+  desc: v017 OVN Service network
+  subnet: 198.18.0.0/26
+  gateway: 198.18.0.1
+- name: service_v018
+  desc: v018 OVN Service network
+  subnet: 198.18.0.0/26
+  gateway: 198.18.0.1
+- name: service_v019
+  desc: v019 OVN Service network
+  subnet: 198.18.0.0/26
+  gateway: 198.18.0.1
+- name: service_v020
+  desc: v020 OVN Service network
+  subnet: 198.18.0.0/26
+  gateway: 198.18.0.1
+- name: service_v021
+  desc: v021 OVN Service network
+  subnet: 198.18.0.0/26
+  gateway: 198.18.0.1
+- name: service_v022
+  desc: v022 OVN Service network
+  subnet: 198.18.0.0/26
+  gateway: 198.18.0.1
+- name: service_v023
+  desc: v023 OVN Service network
+  subnet: 198.18.0.0/26
+  gateway: 198.18.0.1
+- name: service_v024
+  desc: v024 OVN Service network
+  subnet: 198.18.0.0/26
+  gateway: 198.18.0.1
+- name: service_v025
+  desc: v025 OVN Service network
+  subnet: 198.18.0.0/26
+  gateway: 198.18.0.1
+- name: service_v026
+  desc: v026 OVN Service network
+  subnet: 198.18.0.0/26
+  gateway: 198.18.0.1
+- name: service_v027
+  desc: v027 OVN Service network
+  subnet: 198.18.0.0/26
+  gateway: 198.18.0.1
+- name: service_v028
+  desc: v028 OVN Service network
+  subnet: 198.18.0.0/26
+  gateway: 198.18.0.1
+- name: service_v029
+  desc: v029 OVN Service network
+  subnet: 198.18.0.0/26
+  gateway: 198.18.0.1
+- name: service_v030
+  desc: v030 OVN Service network
+  subnet: 198.18.0.0/26
+  gateway: 198.18.0.1
+- name: service_v031
+  desc: v031 OVN Service network
+  subnet: 198.18.0.0/26
+  gateway: 198.18.0.1
+- name: service_v032
+  desc: v032 OVN Service network
+  subnet: 198.18.0.0/26
+  gateway: 198.18.0.1
+- name: service_v033
+  desc: v033 OVN Service network
+  subnet: 198.18.0.0/26
+  gateway: 198.18.0.1
+- name: service_v034
+  desc: v034 OVN Service network
+  subnet: 198.18.0.0/26
+  gateway: 198.18.0.1
+- name: service_v035
+  desc: v035 OVN Service network
+  subnet: 198.18.0.0/26
+  gateway: 198.18.0.1
+- name: service_v036
+  desc: v036 OVN Service network
+  subnet: 198.18.0.0/26
+  gateway: 198.18.0.1
+- name: service_v037
+  desc: v037 OVN Service network
+  subnet: 198.18.0.0/26
+  gateway: 198.18.0.1
+- name: service_v038
+  desc: v038 OVN Service network
+  subnet: 198.18.0.0/26
+  gateway: 198.18.0.1
+- name: service_v039
+  desc: v039 OVN Service network
+  subnet: 198.18.0.0/26
+  gateway: 198.18.0.1
+- name: service_v040
+  desc: v040 OVN Service network
+  subnet: 198.18.0.0/26
+  gateway: 198.18.0.1
+- name: service_v041
+  desc: v041 OVN Service network
+  subnet: 198.18.0.0/26
+  gateway: 198.18.0.1
+##########################
+# DirectConnect Networks #
+
+underlay:
+- name: virtgw
+  desc: Default router network
+  purpose: [ default_route ]
+  vlan: 400
+  subnet: 10.254.0.0/24
+  gateway: 10.254.0.1
+  vrf: sys
+- name: mgmt
+  # NOTE: mgmt network intersects with he-bridge VLAN, which leads to out-of-sync host network state.
+  # so we move default route to virtgw network
+  desc: Virtualization Host Management Network
+  purpose: [ vm ]
+  vlan: 401
+  subnet: 10.254.1.0/24
+  gateway: 10.254.1.1
+  ovirt_name: ovirtmgmt
+  vrf: sys
+- name: san
+  desc: Storage Network for Ceph and Gluster
+  purpose: [ gluster ]
+  vlan: 402
+  subnet: 10.254.2.0/24
+  gateway: 10.254.2.1
+  vrf: sys
+- name: replica
+  desc: Replication Network for Ceph
+  vlan: 403
+  subnet: 10.254.3.0/24
+  gateway: 10.254.3.1
+  # ovirt: false # will be used for Ceph VMs
+  vrf: sys
+- name: display
+  desc: Display Network
+  purpose: [ display ]
+  vlan: 404
+  subnet: 10.254.4.0/24
+  gateway: 10.254.4.1
+  vrf: sys
+- name: migration
+  desc: VM Migration Network
+  purpose: [ migration ]
+  vlan: 405
+  subnet: 10.254.5.0/24
+  gateway: 10.254.5.1
+  vrf: sys
+- name: iscsi01
+  desc: iSCSI via SW1/1
+  vlan: 406
+  subnet: 10.254.6.0/24
+  gateway: 10.254.6.1
+  vrf: sys
+- name: iscsi02
+  desc: iSCSI via SW1/2
+  vlan: 407
+  subnet: 10.254.7.0/24
+  gateway: 10.254.7.1
+  vrf: sys
+- name: internet
+  desc: Internet Network
+  # This location uses VXLAN+EVPN, so there is no VRF instance
+  vrf: internet
+  vlan: 408
+  subnet: 91.147.110.0/25
+  gateway: 91.147.110.1
+  reserved_ips: 1
+# Special network connect to Account's infrastructure 
+- name: account
+  desc: Access to account networks
+  vlan: 411
+  subnet: 198.18.240.0/20
+  gateway: 198.18.240.2
+  router: sys_default
+  vrf: sys
+# Transit networks connecting Account's OVN router and Account's VRF
+- name: service_500
+  desc: SYS Account Service Network
+  vlan: 500
+  purpose: [ account_service ]
+  subnet: 198.18.239.192/26
+  # 198.18.0.0/26 is reserved for OVN accounts
+  gateway: 198.18.239.196
+  router: sys_default
+  vrf: sys
+- name: service_501
+  desc: ACC01 Account Service Network
+  vlan: 501
+  purpose: [ account_service ]
+  subnet: 198.18.0.64/26
+  gateway: 198.18.0.68
+  #router: acc01_default
+  #vrf: acc01
+  #hsrp_vip: 198.18.0.65
+  #transit_routes:
+  #- 10.26.0.0/23
+  #dx_route_target: 701
+- name: service_502
+  desc: ACC02 Account Service Network
+  vlan: 502
+  purpose: [ account_service ]
+  subnet: 198.18.0.128/26
+  gateway: 198.18.0.132
+  #router: acc02_default
+  #vrf: acc02
+  #hsrp_vip: 198.18.0.129
+  #transit_routes:
+  #- 10.26.2.0/23
+  #dx_route_target: 701 
+- name: service_503
+  desc: ACC03 Account Service Network
+  vlan: 503
+  purpose: [ account_service ]
+  subnet: 198.18.0.192/26
+  gateway: 198.18.0.196
+  #router: acc03_default
+  #vrf: acc03
+  #hsrp_vip: 198.18.0.193
+  #transit_routes:
+  #- 10.26.4.0/23
+  #dx_route_target: 701 
+- name: service_504
+  desc: ACC04 Account Service Network
+  vlan: 504
+  purpose: [ account_service ]
+  subnet: 198.18.1.0/26
+  gateway: 198.18.1.4
+  #router: acc04_default
+  #vrf: acc04
+  #hsrp_vip: 198.18.1.1
+  #transit_routes:
+  #- 10.26.6.0/23
+  #dx_route_target: 701 
+- name: service_505
+  desc: ACC05 Account Service Network
+  vlan: 505
+  purpose: [ account_service ]
+  subnet: 198.18.1.64/26
+  gateway: 198.18.1.68
+  #router: acc05_default
+  #vrf: acc05
+  #hsrp_vip: 198.18.1.65
+  #transit_routes:
+  #- 10.26.8.0/23
+  #dx_route_target: 701 
+- name: service_506
+  desc: ACC06 Account Service Network
+  vlan: 506
+  purpose: [ account_service ]
+  subnet: 198.18.1.128/26
+  gateway: 198.18.1.132
+  #router: acc06_default
+  #vrf: acc06
+  #hsrp_vip: 198.18.1.129
+  #transit_routes:
+  #- 10.26.10.0/23
+  #dx_route_target: 701
+- name: service_507
+  desc: ACC07 Account Service Network
+  vlan: 507
+  purpose: [ account_service ]
+  subnet: 198.18.1.192/26
+  gateway: 198.18.1.196
+  #router: acc07_default
+  #vrf: acc07
+  #hsrp_vip: 198.18.1.193
+  #transit_routes:
+  #- 10.26.12.0/23
+  #dx_route_target: 701
+- name: service_508
+  desc: ACC08 Account Service Network
+  vlan: 508
+  purpose: [ account_service ]
+  subnet: 198.18.2.0/26
+  gateway: 198.18.2.4
+  #router: acc08_default
+  #vrf: acc08
+  #hsrp_vip: 198.18.2.1
+  #transit_routes:
+  #- 10.26.14.0/23
+  #dx_route_target: 701    
+
+nodes:
+# bond0 is used by default
+- name: ovih01
+  bonds:
+    bond0:
+      slaves: [ens1f0, ens4f0]
+      vlans: [401, 406, 407]
+- name: ovih02
+  bonds:
+    bond0:
+      slaves: [ens1f0, ens4f0]
+      vlans: [401, 406, 407]
+- name: ovih03
+  bonds:
+    bond0:
+      slaves: [ens1f0, ens4f0]
+      vlans: [401, 406, 407]
+- name: ovih04
+  bonds:
+    bond0:
+      slaves: [ens1f0, ens4f0]
+      vlans: [401, 406, 407]
+- name: ovih05
+  bonds:
+    bond0:
+      slaves: [ens1f0, ens4f0]
+      vlans: [401, 406, 407]

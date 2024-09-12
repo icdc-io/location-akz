@@ -1,0 +1,93 @@
+ceph:
+  version: "reef"
+  image_version: v18 # used by iscsi gateway
+  
+  mon:
+    count: 3 # deploy count daemon across any host
+    hosts:   # currently used by deploy_cluster.yml to check state
+      - ceph01
+      - ceph02
+      - ceph03
+
+  osd:
+    storage_types: # this defines crush maps `replication_<type>` which maps to specific disk tiers
+      - type: nvme
+      - type: ssd
+
+  mds: # aka cephfs
+    volumes:
+    - name: openshift
+      type: ssd
+    - name: nextcloud
+      type: ssd
+
+  iscsi:  
+    hosts:
+      - ceph01
+      - ceph02
+    pools:
+    #  - name: ovirt_pool
+    #    type: ssd
+    #    cfg_pool: "true"
+    #    used_by: compute
+        # New Storage v2 design with mulitple pools and relation database
+      - name: iscsi-nvme
+        type: nvme
+        used_by: storage
+        ceph_user: storage-iscsi-nvme
+      - name: iscsi-ssd
+        type: ssd
+        used_by: storage
+        ceph_user: storage-iscsi-ssd
+      # Pools for OKD clusters:
+      # @DS: here we initially wrongly named pool as nvme, but in fact it's on ssd (sata) media
+      - name: openshift-sys1-nvme
+        type: ssd
+        used_by: openshift
+        ceph_user: openshift-sys1-ssd
+      - name: openshift-orc1-ssd
+        type: ssd
+        used_by: openshift
+        ceph_user: openshift-orc1-ssd
+    #hosted_engine_disks:
+    #  - name: hosted_engine_disk1
+    #    pool: ovirt_pool 
+    #    size: 100G
+    #ovirt_disks:
+    #  - name: ovirt_disk1
+    #    pool: ovirt_pool 
+    #    size: 10T
+
+  s3:
+    count: 3 # deploy count daemon on any hosts
+    #hosts:
+    #  - ceph01
+    #  - ceph02
+    #  - ceph03
+    # port: 81
+    pools: # there is rgw pools described, each rgw pool consist of 3 rados pools
+      - type: ssd
+        name: buckets     # it's default placement used for internal usage
+      # Other pools used by Storage service
+      - type: nvme
+      - type: ssd
+        # name: ssd      # by default inherited from .type
+  # Ingress service is supposed to be used primarly by S3 RGW and prometheus
+  ingress:
+    # vip address configures in inventory file
+    count: 3 # deploy count daemon on any hosts
+    #hosts:
+    #  - ceph01
+    #  - ceph02
+    #  - ceph03
+    # port: 80
+    # mon_port: 1967
+    # dashboard_port: 4443
+    # mgr_prometheus_port: 9285
+    # restful_port: 9286
+
+# Was used only for Storage V1:
+#storage_service:
+#  prometheus_ha_port: 9285
+#  ceph_user: storage
+#  bucket: storage-db

@@ -1,0 +1,383 @@
+## Hardware access
+#[seed_machine]
+#seed-vm ansible_host=
+#[seed_machine:vars]
+#nfs_server=10.10.65.92
+#nfs_subnet=10.11.70.0/24
+#ansible_user=root
+#ansible_ssh_common_args='-o Port=8149'
+#ansible_python_interpreter=/usr/bin/python3
+
+[oc_controller]
+localhost ansible_connection=local
+
+[all:vars]
+ansible_ssh_common_args='-o ProxyJump=root@10.253.17.1 -o StrictHostKeyChecking=no'
+ansible_user=root
+
+## This location does not have automation for dataswitches
+[data_switches]
+# sensitive to order
+#datasw-1 ansible_host=10.25.248.11
+#datasw-2 ansible_host=10.25.248.12
+[data_switches:vars]
+#ansible_port=22
+#ansible_user=dsatsura
+#ansible_net_username=dsatsura
+#ansible_connection=ansible.netcommon.network_cli
+#ansible_network_os=cisco.nxos.nxos
+#ansible_ssh_common_args='-o ProxyCommand="ssh -W %h:%p -q sshproxy@172.20.12.104"'
+#ansible_host_key_checking=false
+#ansible_python_interpreter=/usr/bin/python
+
+## Out-of-Band Management (OOBM)
+## aka Lights-Out Management (LOM)
+## vendor implementations: iDRAC, iLO, IMM
+[ovih_oobm]
+ovih01-oobm ansible_host=10.98.1.15
+ovih02-oobm ansible_host=10.98.1.5
+ovih03-oobm ansible_host=10.98.1.11
+ovih04-oobm ansible_host=10.98.1.13
+ovih05-oobm ansible_host=10.98.1.12
+[ovih_oobm:vars]
+#user_oobm=root
+
+[ceph_oobm]
+# This location have Ceph host on VMs, so do not have oobm interfaces
+#ceph01-oobm ansible_host=10.16.52.0
+
+## Operating System Management
+## used to configure OS with ansible
+
+[ovih_osm]
+ovih01-osm ansible_host=10.99.1.20
+ovih02-osm ansible_host=10.99.1.2
+ovih03-osm ansible_host=10.99.1.18
+ovih04-osm ansible_host=10.99.1.3
+ovih05-osm ansible_host=10.99.1.12
+[ovih_osm:vars]
+h_e_domain_type=iscsi
+h_e_iscsi_target=# iqn.2010-06.com.purestorage:flasharray.694efe0048237d1a
+h_e_storage_domain_addr=10.254.6.2
+h_e_mem_size_MB=16384
+h_e_vcpus=12
+# he_lun_id=3624a937092639b507bf44270000113ea # auto-detect
+## This location do not have OOB module automation for installing OS
+#os_disk=sda
+#interface=eno1
+#netmask=255.255.255.0
+gateway=10.16.52.2
+ansible_ssh_common_args='-o ProxyJump=seed.akz -o StrictHostKeyChecking=no'
+ansible_port=22
+ansible_user=root
+
+[ceph_fast_osm]
+#ceph01-osm ansible_host=10.25.248.118
+#ceph02-osm ansible_host=10.25.248.119
+#ceph03-osm ansible_host=10.25.248.120
+[ceph_fast_osm:vars]
+#use_lldp=no
+#bonds_ifs='{"bond0":["ens3f0","ens3f1"]}'
+#bonds_vlans='{"bond0":[401,402,403]}'
+#[ceph_slow_osm]
+#[ceph_slow_osm:vars]
+#use_lldp=no
+#bonds_ifs='{"bond0":["ens6f0np0","ens6f1np1"]}'
+#bonds_vlans='{"bond0":[401,402,403]}'
+[ceph_osm:children]
+ceph_mgmt # We use ceph on Virtual Machines, so we do not have separate OSM interface
+#ceph_fast_osm
+#ceph_slow_osm
+[ceph_osm:vars]
+#os_disk=sda
+#interface=eno1
+#netmask=255.255.255.0
+#gateway=10.25.248.1
+#ansible_ssh_common_args='-o ProxyJump='
+ansible_user=root
+
+## oVirt interfaces
+[ovirt_engine]
+engine-ovirt ansible_host=10.254.1.20
+[ovirt_engine:vars]
+ansible_ssh_common_args='-o ProxyJump=seed.akz -o StrictHostKeyChecking=no'
+ansible_user=root
+# here we should define full hostname
+[ovirt_engine_osm]
+engine-ovirt.akz.icdc.io ansible_ssh_common_args='-o ProxyJump=seed.akz'
+
+[ovih_virtgw]
+ovih01-virtgw ansible_host=10.254.0.21
+ovih02-virtgw ansible_host=10.254.0.22
+ovih03-virtgw ansible_host=10.254.0.23
+ovih04-virtgw ansible_host=10.254.0.24
+ovih05-virtgw ansible_host=10.254.0.25
+
+[ovih_he_mgmt]
+ovih01-mgmt ansible_host=10.254.1.21
+ovih02-mgmt ansible_host=10.254.1.22
+ovih03-mgmt ansible_host=10.254.1.23
+[ovih_he_mgmt:vars]
+ansible_ssh_common_args='-o ProxyJump=seed.akz -o StrictHostKeyChecking=no'
+ansible_user=root
+
+[ovih_mgmt:children]
+ovih_he_mgmt
+[ovih_mgmt]
+ovih04-mgmt ansible_host=10.254.1.24
+ovih05-mgmt ansible_host=10.254.1.25
+[ovih_mgmt:vars]
+ansible_ssh_common_args='-o ProxyJump=seed.akz'
+ansible_user=root
+
+[ovih_he_san]
+ovih01-san ansible_host=10.254.2.21
+ovih02-san ansible_host=10.254.2.22
+ovih03-san ansible_host=10.254.2.23
+[ovih_he_san:vars]
+ansible_ssh_common_args='-o ProxyJump=seed.akz'
+ansible_user=root
+
+[ovih_san:children]
+ovih_he_san
+[ovih_san]
+ovih04-san ansible_host=10.254.2.24
+ovih05-san ansible_host=10.254.2.25
+[ovih_san:vars]
+ansible_ssh_common_args='-o ProxyJump=seed.akz'
+ansible_user=root
+
+[ovih_display]
+ovih01-display ansible_host=10.254.4.21
+ovih02-display ansible_host=10.254.4.22
+ovih03-display ansible_host=10.254.4.23
+ovih04-display ansible_host=10.254.4.24
+ovih05-display ansible_host=10.254.4.25
+
+[ovih_migration]
+ovih01-migration ansible_host=10.254.5.21
+ovih02-migration ansible_host=10.254.5.22
+ovih03-migration ansible_host=10.254.5.23
+ovih04-migration ansible_host=10.254.5.24
+ovih05-migration ansible_host=10.254.5.25
+
+# Optional groups
+# External storage currenntly support by 2 path: iscsi01, iscsi02
+[ovih_iscsi01]
+ovih01-iscsi01 ansible_host=10.254.6.21
+ovih02-iscsi01 ansible_host=10.254.6.22
+ovih03-iscsi01 ansible_host=10.254.6.23
+ovih04-iscsi01 ansible_host=10.254.6.24
+ovih05-iscsi01 ansible_host=10.254.6.25
+[ovih_iscsi02]
+ovih01-iscsi02 ansible_host=10.254.7.21
+ovih02-iscsi02 ansible_host=10.254.7.22
+ovih03-iscsi02 ansible_host=10.254.7.23
+ovih04-iscsi02 ansible_host=10.254.7.24
+ovih05-iscsi02 ansible_host=10.254.7.25
+[ovih_vgpu]
+[ovih_nestedvt]
+ovih04-nestedvt
+ovih05-nestedvt
+
+[display_proxy]
+display-1 ansible_host=10.254.20.5
+[display_proxy_external]
+display-1-external ansible_host=# 91.147.110.4
+
+## Ceph interfaces
+
+[ceph_mgmt]
+# We have Ceph on Virtual Machines, so we place them in base network (not mgmt)
+# mgmt vlan is used by he-bridge network and is dedicated exclusively for hosted-engine VM.
+ceph01-mgmt ansible_host=10.254.20.7
+ceph02-mgmt ansible_host=10.254.20.8
+ceph03-mgmt ansible_host=10.254.20.9
+#ceph04-mgmt ansible_host=10.254.1.14
+#ceph05-mgmt ansible_host=10.254.1.15
+[ceph_mgmt:vars]
+# need for iscsigw CloudGateways
+ansible_ssh_common_args='-o ProxyJump=seed.akz -o StrictHostKeyChecking=no'
+ansible_port=22
+ansible_user=root
+
+[ceph_san]
+ceph01-san ansible_host=10.254.2.11
+ceph02-san ansible_host=10.254.2.12
+ceph03-san ansible_host=10.254.2.13
+#ceph04-san ansible_host=10.254.2.14
+#ceph05-san ansible_host=10.254.2.15
+
+[ceph_vip]
+ceph-ingress ansible_host=10.254.2.10
+
+[ceph_replica]
+ceph01-replica ansible_host=10.254.3.11
+ceph02-replica ansible_host=10.254.3.12
+ceph03-replica ansible_host=10.254.3.13
+#ceph04-replica ansible_host=10.254.3.14
+#ceph05-replica ansible_host=10.254.3.15
+
+############################################
+# Infrastructure Cluster
+# Runs CoreDNS
+# Configure IP addresses here, usually first 3 ip addresses from sys_public
+[infra]
+infra-1 ansible_host=10.254.20.2
+infra-2 ansible_host=10.254.20.3
+infra-3 ansible_host=10.254.20.4
+[infra:vars]
+# go through SSH via public IP
+ansible_ssh_common_args='-o ProxyJump=root@x.x.x.x.localhost:2201 -o StrictHostKeyChecking=no'
+ansible_port=22
+ansible_user=root
+
+# You can override here DNS public address
+# [dns]
+# dns-external ansible_host=x.x.x.x
+
+#############################################
+# Openshift IPs
+[openshift]
+ocp-01 ansible_host=10.254.29.20
+ocp-02 ansible_host=10.254.29.21
+ocp-03 ansible_host=10.254.29.22
+ocp-04 ansible_host=10.254.29.23
+ocp-05 ansible_host=10.254.29.24
+ocp-06 ansible_host=10.254.29.25
+ocp-07 ansible_host=10.254.29.26
+ocp-08 ansible_host=10.254.29.27
+ocp-09 ansible_host=10.254.29.28
+ocp-10 ansible_host=10.254.29.29
+ocp-11 ansible_host=10.254.29.30
+ocp-12 ansible_host=10.254.29.31
+ocp-13 ansible_host=10.254.29.32
+ocp-14 ansible_host=10.254.29.33
+ocp-15 ansible_host=10.254.29.34
+
+#############################################
+# Cloud Gateway services
+#
+# SYS account cloudgw has special settings
+[sys_cloudgw_account]
+cloudgw-605d2d08 ansible_host=198.18.240.5 cloudgw_id=605d2d08-ed9d-5257-814e-59f4a6a78261 router_name=sys_default
+# New Cloud Gateway will be automatically added here
+[new_cloudgw_account]
+[new_cloudgw_account:children]
+# cloudgw_account
+# sys_cloudgw_account
+[new_cloudgw_account:vars]
+# before first VPN deployment go through first infra node (port :2201)
+ansible_ssh_common_args='-o ProxyJump=root@sys.vpn.akz.icdc.io:2201 -o StrictHostKeyChecking=no'
+ansible_port=22
+ansible_user=root
+pool_name=iscsi-ssd
+# Move finalized cloud gateways here
+[cloudgw_account]
+cloudgw-4c51a9ff ansible_host=198.18.240.47 cloudgw_id=4c51a9ff-6f53-5b10-841f-7d6adc86e086
+cloudgw-11f6140b ansible_host=198.18.240.46 cloudgw_id=11f6140b-69f2-5172-861f-5db4555dfb2a
+cloudgw-e896065d ansible_host=198.18.240.45 cloudgw_id=e896065d-0195-59b4-94f3-db8751c28f19
+cloudgw-2a860a86 ansible_host=198.18.240.44 cloudgw_id=2a860a86-20a0-520e-a82f-d70c00dcbdc5
+cloudgw-e1ed9572 ansible_host=198.18.240.43 cloudgw_id=e1ed9572-9ef5-5c5c-8095-533d57bd360f
+cloudgw-a47b9b5f ansible_host=198.18.240.42 cloudgw_id=a47b9b5f-58f2-5065-b97a-fa55c820e95a
+cloudgw-42bbba0c ansible_host=198.18.240.41 cloudgw_id=42bbba0c-0943-50fa-97ca-8756a925fd73
+cloudgw-8407bc99 ansible_host=198.18.240.40 cloudgw_id=8407bc99-3e68-56dc-8c5f-9910967a5856
+cloudgw-57d124a3 ansible_host=198.18.240.39 cloudgw_id=57d124a3-b34d-59fa-b9dd-e493f867797f
+cloudgw-8337fe7f ansible_host=198.18.240.38 cloudgw_id=8337fe7f-e7ee-5abe-ba45-6b3beb276f88
+cloudgw-d4c1978c ansible_host=198.18.240.37 cloudgw_id=d4c1978c-abc2-59a0-8cbb-311e8c36ca74
+cloudgw-695e3e40 ansible_host=198.18.240.36 cloudgw_id=695e3e40-772b-5d55-adc3-420223fcc6d4
+cloudgw-96005c6e ansible_host=198.18.240.35 cloudgw_id=96005c6e-3f91-502e-841a-f5d8a1aa8309
+cloudgw-212fc6a8 ansible_host=198.18.240.34 cloudgw_id=212fc6a8-d473-5737-ae8a-ec088cce0a3e
+cloudgw-fc525858 ansible_host=198.18.240.33 cloudgw_id=fc525858-e4be-58b4-8043-65947e1c1143
+cloudgw-49a73afa ansible_host=198.18.240.32 cloudgw_id=49a73afa-15a6-5f71-aa9b-e629b885f300
+cloudgw-7c0d7d66 ansible_host=198.18.240.31 cloudgw_id=7c0d7d66-d753-57f3-bed6-088207d385a5
+cloudgw-b8472765 ansible_host=198.18.240.30 cloudgw_id=b8472765-bdaa-5ad6-a8dc-a1c0d438b7be
+cloudgw-c0d1c110 ansible_host=198.18.240.29 cloudgw_id=c0d1c110-b867-5c1c-8eb0-cd48e4d0e927
+cloudgw-b5edef77 ansible_host=198.18.240.28 cloudgw_id=b5edef77-2aa5-5a27-b356-ee091960f334
+cloudgw-c51b1e01 ansible_host=198.18.240.27 cloudgw_id=c51b1e01-52d6-55eb-ad71-6b08a8e1e546
+cloudgw-10178ef0 ansible_host=198.18.240.26 cloudgw_id=10178ef0-18e4-5907-88bb-345f1ec44bb4
+cloudgw-c737d8f4 ansible_host=198.18.240.25 cloudgw_id=c737d8f4-2e85-5a21-b5fd-e85ceeb2cafa
+cloudgw-2281700c ansible_host=198.18.240.24 cloudgw_id=2281700c-a960-5698-97be-e1918af155b1
+cloudgw-48ac4e17 ansible_host=198.18.240.23 cloudgw_id=48ac4e17-7287-5663-a5fa-49a8bd406219
+cloudgw-54d2852c ansible_host=198.18.240.22 cloudgw_id=54d2852c-bcd2-5ca8-ad08-ea286f43daec
+cloudgw-718e849a ansible_host=198.18.240.21 cloudgw_id=718e849a-58b4-54b5-8248-67e0baf6ccb0
+cloudgw-e1c6598c ansible_host=198.18.240.20 cloudgw_id=e1c6598c-ec52-5def-a1b5-fe329214da82
+cloudgw-65348695 ansible_host=198.18.240.19 cloudgw_id=65348695-3702-5d3d-b605-bcc9c46ab79e
+cloudgw-d51e7127 ansible_host=198.18.240.18 cloudgw_id=d51e7127-7901-5da3-b3b3-b5b74b674506
+cloudgw-6441963e ansible_host=198.18.240.17 cloudgw_id=6441963e-dc44-5eb8-a8e7-2fbebbc076da
+cloudgw-8eda8a14 ansible_host=198.18.240.16 cloudgw_id=8eda8a14-778b-5768-a325-490d82c8395f
+cloudgw-f39ae4e6 ansible_host=198.18.240.15 cloudgw_id=f39ae4e6-7aba-5c1c-a760-5f8dc6c603f7
+cloudgw-23a4de60 ansible_host=198.18.240.14 cloudgw_id=23a4de60-8b68-5f81-99c9-e3352d927875
+cloudgw-87f3965a ansible_host=198.18.240.13 cloudgw_id=87f3965a-2bf4-5403-a3d3-a534efd9e4d7
+cloudgw-7d81fbb0 ansible_host=198.18.240.12 cloudgw_id=7d81fbb0-3b07-53e1-89ec-b6aff5785de7
+cloudgw-e5000827 ansible_host=198.18.240.11 cloudgw_id=e5000827-f565-5ab3-916d-e0f4645b6573
+cloudgw-5abdba8f ansible_host=198.18.240.10 cloudgw_id=5abdba8f-df20-59c4-94de-80d702c53f65
+cloudgw-74eebd49 ansible_host=198.18.240.9 cloudgw_id=74eebd49-2ff9-545f-9cc1-851ecef91896
+cloudgw-85a77cc9 ansible_host=198.18.240.8 cloudgw_id=85a77cc9-d0fc-59b7-bfcf-c9652e0e10cc
+cloudgw-c7bdf2fe ansible_host=198.18.240.7 cloudgw_id=c7bdf2fe-b149-5657-bf9c-3b496c0f480a
+[cloudgw_account:children]
+# sys_cloudgw_account
+[cloudgw_account:vars]
+# before first VPN deployment go through first infra node (port :2201)
+ansible_ssh_common_args='-o ProxyJump=root@sys.vpn.akz.icdc.io:2201 -o StrictHostKeyChecking=no'
+ansible_port=22
+ansible_user=root
+
+# Use for publishing backend in Traefik
+[s3]
+ceph01-s3 ansible_host=10.254.2.11
+ceph02-s3 ansible_host=10.254.2.12
+ceph03-s3 ansible_host=10.254.2.13
+#ceph04-s3 ansible_host=10.254.2.14
+#ceph05-s3 ansible_host=10.254.2.15
+#[s3:children]
+# ceph_san
+[s3_local:children]
+# Use for publishing backend in Local Account Traefik accessing through SAN network
+ceph_san
+
+[disk:children]
+nc
+[traefik_manager]
+traefik-manager ansible_host=traefik.akz.icdc.io # fake record required to deploy traefik config
+[wireguard_manager]
+wireguard-manager ansible_host=wireguard.akz.icdc.io # fake record required to deploy traefik config
+[etcd_dns]
+etcd-dns
+# End of fake traefic records
+
+[zabbix]
+zabbix-base ansible_host=10.254.20.11
+[zabbix_cloudgw]
+zabbix-account ansible_host=198.18.240.6
+[zabbix:vars]
+data_disk=sda
+
+[elk]
+elk01-base ansible_host=10.254.20.12
+elk02-base ansible_host=10.254.20.14
+elk03-base ansible_host=10.254.20.15
+
+[elk_es]
+elk01-es
+elk02-es
+elk03-es
+
+[elk_kibana]
+elk01-kibana
+
+[elk_logstash]
+elk02-logstash
+elk03-logstash
+
+[nc]
+nc-base ansible_host=10.254.20.10
+
+[code]
+code-base ansible_host=10.254.20.13
+
+[export]
+export-base ansible_host=10.254.20.6
+[image_catalog]
+image-catalog-local ansible_host=10.254.2.10 expose= # currently not exposed to other locations
+image-catalog-zeu ansible_host=s3.zeu.icdc.io

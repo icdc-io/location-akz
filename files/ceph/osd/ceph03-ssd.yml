@@ -1,0 +1,9 @@
+# OSD specification for specific host
+service_type: osd
+service_id: ceph03-ssd
+placement:
+  host_pattern: ceph03
+crush_device_class: ssd
+data_devices:
+  rotational: false
+  model: "INTEL SSDSC2KB03"

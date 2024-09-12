@@ -1,0 +1,176 @@
+# AKZ, hex_code: 11, dec_code: 17
+# Required for client-auto-config
+location: akz
+public_key: ???
+# VPN server config
+account: sys
+vpn:
+- name: icdc
+  port: 2200
+  ip: 10.253.17.1/24
+  devices:
+  - num: 2
+    name: dsatsura@ibagroup.eu notebook
+    public_key: CgmnYEVMz4SLOWegz6U9BwAytJQHVQLaAlrrWIM4exE=
+  - num: 3
+    name: dmemekh workstation
+    public_key: q0I8FAzcC+xXaqC6AF56B6FCg5NwiMwh30Fql+XJDT8=
+  - num: 4
+    name: dsatsura@ibagroup.eu workstation
+    public_key: TDtAA+dyR76RsRuMghFqI2cFsVniL+mnck1VfOhKXxM=
+  - num: 5
+    name: dmemekh notebook
+    public_key: mbtCszp4v/d+Uz0RExGGR69UnYQY4ascyPmI9zrsrgg=
+  - num: 6
+    name: ahrechushkin notebook
+    public_key: PMnVks65mxZSxiE6CIT66Wif1PmJlQ8WFULLqktbOw0=
+  - num: 7
+    name: skuzko notebook
+    public_key: YNcpPcKq2UOK9D6L8PJLaUBLpqRrm3Y28M57pC77WhU=
+  - num: 8
+    name: dmemekh okd-setup
+    public_key: Wd5UPiUGEkP/pE6Wdth9/ZhqsBe73GCKazhh0fxzZl4=
+  - num: 10
+    name: dsakovich@ibagroup.eu notebook
+    public_key: PALmuTDJ8pMeN8G7LaRJkI3IPp3G8bVIGQxmoklLAXQ=
+  - num: 11
+    name: dsatsura@ibagroup.eu T15 notebook
+    public_key: Ygv0HUSdzNq21Jz7nbcLovuKEEK6xgz3JW7KUjYfhDk=
+  - num: 12
+    name: mmarchanka@ibagroup.eu
+    public_key: 2QROAWTG1+FfAM653mpUs5ydGmmwA6tFjRjSju1gF1I=
+  - num: 13
+    name: ahrechushkin macbook
+    public_key: ve7Z8+qi+b6nmKt6eYz3wfORT+9nRKDdafLo5g67L0k=
+- name: team
+  port: 2201
+  ip: 10.254.17.1/25
+  devices:
+  - num: 2
+    name: Ivan Yermashov notebook
+    public_key: qNeyrtq95IiJGPTA6nLoJYSF6o4qfZXw2ZA7EbFLS2o=
+  - num: 3
+    name: Daniyar Tenisov device
+    public_key: ZSt1SAOOLApgqmzAwOqMaaSmkvBXvndBtcpiqLiTW00=
+  - num: 4
+    name: Pavel Davydenko notebook
+    public_key: djpFTVIix99XU16txFo6yPfFAF+9phCMrVaxqpXaqiw=
+  - num: 5
+    name: Vladimir Malinovskiy device
+    public_key: olinUW0PxXUA8wadFY87bbP122rJNZk2wK0zT4XolQ0=
+  - num: 6
+    name: Pavel Davydenko tablet android
+    public_key: K7MRTBk49mnF4b2CMZqVmgZ74VW03ake7/ceDZ0Wb1|=
+  - num: 7
+    name: Taira Kutsayenko notebook
+    public_key: pAa4t4wYrGriGVxnsehb8tSwtm5QdEqk8asABbBy/go=
+  - num: 8
+    name: Roman Vasilev notebook
+    public_key: DGZNI6u/bZAHHTGPkiKbi+/MjLOYT7exBQ4BEvc8ihw=
+  - num: 9
+    name: Arman Alimnuruly notebook
+    public_key: Tk44PcZSuqGA5Pw+j8EOOvjY+laD6rlSC3hJE5LmCj0=
+peer_vpn: []
+# NAT for Location resources
+nat:
+  subnet: 10.253.17.128/25
+  map:
+  - num: 2
+    toaddr: 10.254.1.20
+    host: engine-ovirt
+  - num: 3
+    toaddr: 10.254.1.21
+    host: ovih01
+  - num: 4
+    toaddr: 10.254.1.22
+    host: ovih02
+  - num: 5
+    toaddr: 10.254.1.23
+    host: ovih03
+  - num: 6
+    toaddr: 10.254.1.24
+    host: ovih04
+  - num: 7
+    toaddr: 10.254.1.25
+    host: ovih05
+  - num: 8
+    toaddr: 10.254.1.26
+    host: ovih06
+  - num: 9
+    toaddr: 10.254.1.27
+    host: ovih07
+  - num: 10
+    toaddr: 10.254.1.28
+    host: ovih08
+  - num: 11
+    toaddr: 10.254.1.29
+    host: ovih09
+  - num: 12
+    toaddr: 10.254.1.30
+    host: ovih10
+  - num: 13
+    toaddr: 10.254.20.2
+    host: infra-1
+  - num: 14
+    toaddr: 10.254.20.3
+    host: infra-2
+  - num: 15
+    toaddr: 10.254.20.4
+    host: infra-3
+  - num: 16
+    toaddr: 198.18.0.2
+    host: cloudgw
+  # - num: 17
+  #   toaddr: 10.254.20.11
+  #   host: zabbix
+  # - num: 18
+  #   toaddr: 10.254.20.12
+  #   host: logs
+  # - num: 19
+  #   toaddr: 10.254.20.13
+  #   host: code
+  # - num: 20
+  #   toaddr: 10.254.2.10
+  #   host: ceph
+  # - num: 21
+  #   toaddr: 10.254.4.21
+  #   host: ovih01-display
+  # - num: 22
+  #   toaddr: 10.254.4.22
+  #   host: ovih02-display
+  # - num: 23
+  #   toaddr: 10.254.4.23
+  #   host: ovih03-display
+  # - num: 24
+  #   toaddr: 10.254.4.24
+  #   host: ovih04-display
+  # - num: 25
+  #   toaddr: 10.254.4.25
+  #   host: ovih05-display
+  # - num: 26
+  #   toaddr: 10.254.29.11
+  #   host: ocp-sys1-api
+  # - num: 27
+  #   toaddr: 10.254.29.12
+  #   host: ocp-sys1-apps
+  # - num: 28
+  #   toaddr: 10.254.29.13
+  #   host: ocp-sys1-loc
+  # - num: 29
+  #   toaddr: 10.254.20.10
+  #   host: nc
+  # - num: 30
+  #   toaddr: 10.254.20.7
+  #   host: ceph01
+  # - num: 31
+  #   toaddr: 10.254.20.8
+  #   host: ceph02
+  # - num: 32
+  #   toaddr: 10.254.20.9
+  #   host: ceph03
+  # - num: 33
+  #   toaddr: 10.254.30.11
+  #   host: ocp-orc1-api
+  # - num: 34
+  #   toaddr: 10.254.30.12
+  #   host: ocp-orc1-apps

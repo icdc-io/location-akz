@@ -1,0 +1,3 @@
+ocp.akz.icdc.io:53 {
+  file /etc/coredns/db.ocp.akz.icdc.io
+}
