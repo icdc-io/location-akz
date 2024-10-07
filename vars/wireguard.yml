@@ -1,7 +1,7 @@
 # AKZ, hex_code: 11, dec_code: 17
 # Required for client-auto-config
 location: akz
-public_key: ???
+public_key: 9o0OHqpDqNI2MCPvAhrylJOz3R28nRycUxKxyXnzvkQ=
 # VPN server config
 account: sys
 vpn:
@@ -129,9 +129,24 @@ nat:
   # - num: 19
   #   toaddr: 10.254.20.13
   #   host: code
-  # - num: 20
-  #   toaddr: 10.254.2.10
-  #   host: ceph
+  - num: 20
+    toaddr: 10.254.2.10
+    host: ceph
+  - num: 21
+    toaddr: 10.254.20.6
+    host: ceph01
+  - num: 22
+    toaddr: 10.254.20.7
+    host: ceph02
+  - num: 23
+    toaddr: 10.254.20.8
+    host: ceph03
+  - num: 24
+    toaddr: 10.254.20.100
+    host: ceph04
+  - num: 25
+    toaddr: 10.254.20.100
+    host: ceph05
   # - num: 21
   #   toaddr: 10.254.4.21
   #   host: ovih01-display
@@ -159,15 +174,7 @@ nat:
   # - num: 29
   #   toaddr: 10.254.20.10
   #   host: nc
-  # - num: 30
-  #   toaddr: 10.254.20.7
-  #   host: ceph01
-  # - num: 31
-  #   toaddr: 10.254.20.8
-  #   host: ceph02
-  # - num: 32
-  #   toaddr: 10.254.20.9
-  #   host: ceph03
+
   # - num: 33
   #   toaddr: 10.254.30.11
   #   host: ocp-orc1-api

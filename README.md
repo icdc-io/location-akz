@@ -28,6 +28,9 @@ ansible-playbook ovirt/3_configure_ovn.yml --skip san_net -e step_by_step=true
 5. Added hosts
 6. Configured default 'data' datastores
 
+```
+ansible-playbook ovirt/5_datstore.yml iscsi_lun_id=3624a9370a9f5c2b40d9e4a1c000113e8
+```
 
 ## Deploy Ceph
 
@@ -38,7 +41,7 @@ ovn-nbctl set logical_switch ovirt-akz_replica-bba48787-3d86-44b0-8a44-c7b659ef6
 Deploy on virtual machines (one by one to get expected IP addresses) which consumes disks from Compute nodes.
 
 ```
-ansible-playbook ceph/01_ovirt_vm.yml -e step_by_step=true -e disk_type=nvme -e disk_count=23 --limit ceph01-mgmt
+ansible-playbook ceph/01_ovirt_vm.yml -e step_by_step=true -e disk_type=ssd -e disk_count=23 --limit ceph01-mgmt
 ```
 
 ```

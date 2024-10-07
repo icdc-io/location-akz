@@ -4,15 +4,38 @@ ceph:
   
   mon:
     count: 3 # deploy count daemon across any host
-    hosts:   # currently used by deploy_cluster.yml to check state
+    # TODO: currently we require explicitely define hosts,
+    #       as used by deploy_cluster.yml to check state
+    hosts:
       - ceph01
       - ceph02
       - ceph03
 
   osd:
     storage_types: # this defines crush maps `replication_<type>` which maps to specific disk tiers
-      - type: nvme
       - type: ssd
+      # - type: nvme
+  
+  rbd:
+    pools: # RBD pools
+      # Compute (oVirt) pools used by iSCSI gateway:
+      - name: ovirt-ssd
+        type: ssd
+        used_by: compute
+      # Storage v2 with mulitple pools:
+      - name: iscsi-ssd
+        type: ssd
+        used_by: storage
+        ceph_user: storage-iscsi-ssd
+      # Pools for OKD clusters:
+      - name: openshift-sys1
+        type: ssd
+        used_by: openshift
+        ceph_user: openshift-admin
+      - name: openshift-orc1
+        type: ssd
+        used_by: openshift
+        ceph_user: openshift-admin
 
   mds: # aka cephfs
     volumes:
@@ -21,42 +44,31 @@ ceph:
     - name: nextcloud
       type: ssd
 
-  iscsi:  
-    hosts:
-      - ceph01
-      - ceph02
-    pools:
-    #  - name: ovirt_pool
-    #    type: ssd
-    #    cfg_pool: "true"
-    #    used_by: compute
-        # New Storage v2 design with mulitple pools and relation database
-      - name: iscsi-nvme
-        type: nvme
-        used_by: storage
-        ceph_user: storage-iscsi-nvme
-      - name: iscsi-ssd
-        type: ssd
-        used_by: storage
-        ceph_user: storage-iscsi-ssd
-      # Pools for OKD clusters:
-      # @DS: here we initially wrongly named pool as nvme, but in fact it's on ssd (sata) media
-      - name: openshift-sys1-nvme
-        type: ssd
-        used_by: openshift
-        ceph_user: openshift-sys1-ssd
-      - name: openshift-orc1-ssd
-        type: ssd
-        used_by: openshift
-        ceph_user: openshift-orc1-ssd
-    #hosted_engine_disks:
-    #  - name: hosted_engine_disk1
-    #    pool: ovirt_pool 
-    #    size: 100G
-    #ovirt_disks:
-    #  - name: ovirt_disk1
-    #    pool: ovirt_pool 
-    #    size: 10T
+  iscsi:
+    configs:
+    - id: ssd # id of service
+      pool: ovirt-ssd # where config is stored
+      hosts:
+        - ceph01
+        - ceph02
+      targets:
+        # It's recommended to have separate target for hosted-engine datastore
+        # AKZ: consumes hosted-engine datastore from PureStorage FlashArray
+        # - name: he
+        #   host_group: ovih_san
+        #   disks:
+        #     - name: he
+        #       pool: ovirt-ssd
+        #       size: 150G
+        - name: ovirt-ssd
+          host_group: ovih_san
+          disks:
+            - name: data-ssd-1
+              pool: ovirt-ssd
+              size: 20T
+            - name: data-ssd-2
+              pool: ovirt-ssd
+              size: 20T
 
   s3:
     count: 3 # deploy count daemon on any hosts
@@ -69,7 +81,6 @@ ceph:
       - type: ssd
         name: buckets     # it's default placement used for internal usage
       # Other pools used by Storage service
-      - type: nvme
       - type: ssd
         # name: ssd      # by default inherited from .type
   # Ingress service is supposed to be used primarly by S3 RGW and prometheus
