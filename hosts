@@ -308,7 +308,7 @@ etcd-dns
 # End of fake traefic records
 
 [zabbix]
-zabbix-base ansible_host=10.254.20.11
+zabbix-base ansible_host=10.254.20.9
 [zabbix_cloudgw]
 zabbix-account ansible_host=198.18.240.6
 [zabbix:vars]

@@ -31,11 +31,9 @@ ceph:
       - name: openshift-sys1
         type: ssd
         used_by: openshift
-        ceph_user: openshift-admin
       - name: openshift-orc1
         type: ssd
         used_by: openshift
-        ceph_user: openshift-admin
 
   mds: # aka cephfs
     volumes:

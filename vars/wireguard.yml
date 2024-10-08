@@ -120,9 +120,9 @@ nat:
   - num: 16
     toaddr: 198.18.0.2
     host: cloudgw
-  # - num: 17
-  #   toaddr: 10.254.20.11
-  #   host: zabbix
+  - num: 17
+    toaddr: 10.254.20.9
+    host: zabbix
   # - num: 18
   #   toaddr: 10.254.20.12
   #   host: logs
